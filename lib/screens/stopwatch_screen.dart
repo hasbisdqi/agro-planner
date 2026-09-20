@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class StopwatchScreen extends StatefulWidget {
@@ -89,11 +88,11 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               // Info Card
               Card(
                 elevation: 0,
-                color: colorScheme.primaryContainer.withOpacity(0.4),
+                color: colorScheme.primaryContainer.withValues(alpha: 0.4),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                   side: BorderSide(
-                    color: colorScheme.primary.withOpacity(0.2),
+                    color: colorScheme.primary.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Padding(
@@ -103,7 +102,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: colorScheme.primary.withOpacity(0.15),
+                          color: colorScheme.primary.withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(

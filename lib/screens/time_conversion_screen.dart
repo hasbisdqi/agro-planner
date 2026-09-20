@@ -86,13 +86,10 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
 
     // Fallback format if locale id_ID is not initialized in basic runner
     String formattedSelectedDate;
-    String formattedCurrentDate;
     try {
       formattedSelectedDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm WIB', 'id_ID').format(_selectedDateTime);
-      formattedCurrentDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm:ss WIB', 'id_ID').format(_currentTime);
     } catch (_) {
       formattedSelectedDate = '${_selectedDateTime.day}/${_selectedDateTime.month}/${_selectedDateTime.year} ${_selectedDateTime.hour.toString().padLeft(2, '0')}:${_selectedDateTime.minute.toString().padLeft(2, '0')}';
-      formattedCurrentDate = '${_currentTime.day}/${_currentTime.month}/${_currentTime.year} ${_currentTime.hour.toString().padLeft(2, '0')}:${_currentTime.minute.toString().padLeft(2, '0')}:${_currentTime.second.toString().padLeft(2, '0')}';
     }
 
     return Scaffold(
@@ -139,14 +136,14 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
         gradient: LinearGradient(
           colors: [
             colorScheme.primaryContainer,
-            colorScheme.surfaceVariant,
+            colorScheme.surfaceContainerHighest,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: colorScheme.outlineVariant.withOpacity(0.5),
+          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),
       ),
       child: Row(
@@ -219,7 +216,7 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: colorScheme.surfaceVariant.withOpacity(0.4),
+                color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: colorScheme.outlineVariant),
               ),
@@ -314,7 +311,7 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
       elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: colorScheme.primary.withOpacity(0.3)),
+        side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.3)),
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -322,7 +319,7 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
           gradient: LinearGradient(
             colors: [
               colorScheme.surface,
-              colorScheme.primaryContainer.withOpacity(0.2),
+              colorScheme.primaryContainer.withValues(alpha: 0.2),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -350,7 +347,7 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.15),
+                    color: Colors.green.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.green.shade400),
                   ),
@@ -393,14 +390,14 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
             const SizedBox(height: 8),
             Row(
               children: [
-                _buildTimeUnitBox(theme, colorScheme, '${ageDiff.hours.toString().padLeft(2, '0')}', 'Jam'),
+                _buildTimeUnitBox(theme, colorScheme, ageDiff.hours.toString().padLeft(2, '0'), 'Jam'),
                 const SizedBox(width: 6),
-                _buildTimeUnitBox(theme, colorScheme, '${ageDiff.minutes.toString().padLeft(2, '0')}', 'Menit'),
+                _buildTimeUnitBox(theme, colorScheme, ageDiff.minutes.toString().padLeft(2, '0'), 'Menit'),
                 const SizedBox(width: 6),
                 _buildTimeUnitBox(
                   theme,
                   colorScheme,
-                  '${ageDiff.seconds.toString().padLeft(2, '0')}',
+                  ageDiff.seconds.toString().padLeft(2, '0'),
                   'Detik',
                   highlight: true,
                 ),
@@ -462,12 +459,12 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
         decoration: BoxDecoration(
           color: highlight
               ? colorScheme.primaryContainer
-              : colorScheme.surfaceVariant.withOpacity(0.5),
+              : colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: highlight
                 ? colorScheme.primary
-                : colorScheme.outlineVariant.withOpacity(0.5),
+                : colorScheme.outlineVariant.withValues(alpha: 0.5),
             width: highlight ? 1.5 : 1.0,
           ),
         ),
@@ -584,9 +581,9 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: colorScheme.surfaceVariant.withOpacity(0.4),
+                color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.5)),
+                border: Border.all(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
               ),
               child: Row(
                 children: [
@@ -683,13 +680,13 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isPrimary
-              ? theme.colorScheme.primaryContainer.withOpacity(0.4)
-              : theme.colorScheme.surfaceVariant.withOpacity(0.4),
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.4)
+              : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: isPrimary
-                ? theme.colorScheme.primary.withOpacity(0.4)
-                : theme.colorScheme.outlineVariant.withOpacity(0.4),
+                ? theme.colorScheme.primary.withValues(alpha: 0.4)
+                : theme.colorScheme.outlineVariant.withValues(alpha: 0.4),
           ),
         ),
         child: Column(

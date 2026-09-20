@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ComputationScreen extends StatefulWidget {
-  const ComputationScreen({Key? key}) : super(key: key);
+  const ComputationScreen({super.key});
 
   @override
-  _ComputationScreenState createState() => _ComputationScreenState();
+  State<ComputationScreen> createState() => _ComputationScreenState();
 }
 
 class _ComputationScreenState extends State<ComputationScreen> {
@@ -112,7 +112,7 @@ class _ComputationScreenState extends State<ComputationScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _selectedCrop,
+                          initialValue: _selectedCrop,
               decoration: const InputDecoration(
                 labelText: 'Jenis Tanaman',
                 border: OutlineInputBorder(),

@@ -3,10 +3,10 @@ import '../utils/calendar_utils.dart';
 import 'package:intl/intl.dart';
 
 class TraditionalCalendarScreen extends StatefulWidget {
-  const TraditionalCalendarScreen({Key? key}) : super(key: key);
+  const TraditionalCalendarScreen({super.key});
 
   @override
-  _TraditionalCalendarScreenState createState() => _TraditionalCalendarScreenState();
+  State<TraditionalCalendarScreen> createState() => _TraditionalCalendarScreenState();
 }
 
 class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
