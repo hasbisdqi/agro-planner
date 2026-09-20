@@ -14,11 +14,35 @@ class _ComputationScreenState extends State<ComputationScreen> {
   double? _estimatedNPK;
 
   void _calculate() {
-    final areaText = _areaController.text;
-    if (areaText.isEmpty) return;
+    final areaText = _areaController.text.replaceAll(',', '.'); // Handle comma vs dot
+    if (areaText.isEmpty) {
+      setState(() {
+        _estimatedNPK = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Luas lahan tidak boleh kosong')),
+      );
+      return;
+    }
 
     final area = double.tryParse(areaText);
-    if (area == null) return;
+    if (area == null || area < 0 || area.isInfinite || area.isNaN) {
+      setState(() {
+        _estimatedNPK = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Masukkan angka luas lahan yang valid!')),
+      );
+      return;
+    }
+
+    // Edge case if result is too huge (e.g., NIM x NIM -> 15 quadrillion)
+    // 100 juta m2 = 10.000 Hektar (sudah sangat luas untuk 1 petak)
+    if (area > 100000000) {
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Peringatan: Luas melebihi batas rasional (>10.000 Hektar). Pastikan input benar!')),
+      );
+    }
 
     double multiplier = 0;
     switch (_selectedCrop) {
@@ -33,8 +57,19 @@ class _ComputationScreenState extends State<ComputationScreen> {
         break;
     }
 
+    // Perhitungan
+    double result = (area / 10000) * multiplier;
+    
+    // Filter NaN / Infinite yang mungkin lolos
+    if (result.isNaN || result.isInfinite) {
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Terjadi kesalahan perhitungan (Overflow/Invalid).')),
+      );
+      return;
+    }
+
     setState(() {
-      _estimatedNPK = (area / 10000) * multiplier;
+      _estimatedNPK = result;
     });
   }
 

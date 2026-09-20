@@ -113,7 +113,7 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
     });
 
     final name = _nameController.text.trim();
-    final area = double.parse(_areaController.text.trim());
+    final area = double.parse(_areaController.text.trim().replaceAll(',', '.'));
     final plantDate = (_selectedPlantDate ?? DateTime.now()).toIso8601String();
     final harvestDate =
         (_selectedHarvestDate ?? DateTime.now()).toIso8601String();
@@ -205,9 +205,15 @@ class _PlantFormScreenState extends State<PlantFormScreen> {
                   if (value == null || value.trim().isEmpty) {
                     return 'Please enter area size';
                   }
-                  final parsed = double.tryParse(value);
-                  if (parsed == null || parsed <= 0) {
+                  // Normalize comma to dot
+                  final normalizedValue = value.replaceAll(',', '.');
+                  final parsed = double.tryParse(normalizedValue);
+                  if (parsed == null || parsed <= 0 || parsed.isNaN || parsed.isInfinite) {
                     return 'Please enter a valid positive number';
+                  }
+                  // Edge case limit for rational land size (e.g. 10.000 Hectares)
+                  if (parsed > 100000000) {
+                    return 'Luas lahan tidak wajar (>10.000 Hektar)';
                   }
                   return null;
                 },
