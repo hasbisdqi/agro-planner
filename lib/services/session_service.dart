@@ -6,16 +6,11 @@ class SessionService {
   static const String _keyFullName = 'fullName';
 
   Future<bool> login(String username, String password) async {
-    // Validasi dummy
-    if ((username == 'admin' && password == '12345') ||
-        (username == 'petani' && password == '12345')) {
+    if (username == 'admin' && password == 'admin') {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_keyIsLoggedIn, true);
       await prefs.setString(_keyUsername, username);
-      
-      String fullName = username == 'admin' ? 'Administrator' : 'Petani Sejahtera';
-      await prefs.setString(_keyFullName, fullName);
-      
+      await prefs.setString(_keyFullName, 'Administrator');
       return true;
     }
     return false;
