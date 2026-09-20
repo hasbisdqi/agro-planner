@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.people_alt,
                     title: 'Daftar Anggota Kelompok',
                     subtitle: 'Informasi mahasiswa & tim pengembang',
-                    destination: const MembersScreen(),
+                    destination: MembersScreen(),
                   ),
                   const SizedBox(height: 12),
                   _buildMenuButton(

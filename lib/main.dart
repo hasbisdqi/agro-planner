@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:agro_planner/screens/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   runApp(const AgroPlannerApp());
 }
 

@@ -84,13 +84,12 @@ class _TimeConversionScreenState extends State<TimeConversionScreen> {
     final hijriDate = TimeUtils.gregorianToHijri(_selectedDateTime);
     final currentHijriDate = TimeUtils.gregorianToHijri(_currentTime);
 
-    final dateFormatter = DateFormat('EEEE, dd MMMM yyyy, HH:mm:ss', 'id_ID');
     // Fallback format if locale id_ID is not initialized in basic runner
     String formattedSelectedDate;
     String formattedCurrentDate;
     try {
-      formattedSelectedDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm WIB').format(_selectedDateTime);
-      formattedCurrentDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm:ss WIB').format(_currentTime);
+      formattedSelectedDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm WIB', 'id_ID').format(_selectedDateTime);
+      formattedCurrentDate = DateFormat('EEEE, dd MMMM yyyy - HH:mm:ss WIB', 'id_ID').format(_currentTime);
     } catch (_) {
       formattedSelectedDate = '${_selectedDateTime.day}/${_selectedDateTime.month}/${_selectedDateTime.year} ${_selectedDateTime.hour.toString().padLeft(2, '0')}:${_selectedDateTime.minute.toString().padLeft(2, '0')}';
       formattedCurrentDate = '${_currentTime.day}/${_currentTime.month}/${_currentTime.year} ${_currentTime.hour.toString().padLeft(2, '0')}:${_currentTime.minute.toString().padLeft(2, '0')}:${_currentTime.second.toString().padLeft(2, '0')}';
