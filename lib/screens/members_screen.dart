@@ -21,17 +21,22 @@ class MembersScreen extends StatelessWidget {
     Member(
       name: 'Muhammad Hasbi Assidiqi',
       nim: '124240135',
-      role: 'Project Manager & Lead Developer',
+      imagePath: 'assets/member1.png',
     ),
     Member(
-      name: 'Rina Kartika',
-      nim: '124240136',
-      role: 'UI/UX Designer',
-    ),
-    Member(
-      name: 'Budi Santoso',
+      name: 'Muhammad Ridho Nadika',
       nim: '124240137',
-      role: 'Backend Developer',
+      imagePath: 'assets/member2.png',
+    ),
+    Member(
+      name: 'Muhammad Ghaffari',
+      nim: '124240090',
+      imagePath: 'assets/member3.png',
+    ),
+    Member(
+      name: 'Laksana Bagus S. A. J.',
+      nim: '124240188',
+      imagePath: 'assets/member4.png',
     ),
   ];
 

@@ -12,9 +12,8 @@ class TraditionalCalendarScreen extends StatefulWidget {
 class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
   DateTime _selectedDate = DateTime.now();
   
-  String _weton = '';
+  Map<String, dynamic> _wetonDetail = {};
   Map<String, dynamic> _saka = {};
-  String _advice = '';
 
   @override
   void initState() {
@@ -24,9 +23,8 @@ class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
 
   void _calculateCalendar() {
     setState(() {
-      _weton = CalendarUtils.getWeton(_selectedDate);
+      _wetonDetail = CalendarUtils.getWetonDetail(_selectedDate);
       _saka = CalendarUtils.getSaka(_selectedDate);
-      _advice = CalendarUtils.getAgriculturalAdvice(_weton, _saka['sasih'] as String);
     });
   }
 
@@ -112,7 +110,17 @@ class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
                         ),
                         const Divider(thickness: 2),
                         const SizedBox(height: 10),
-                        _buildResultRow('Kalender Jawa (Weton):', _weton, Icons.wb_sunny),
+                        _buildResultRow(
+                          'Kalender Jawa (Weton):',
+                          _wetonDetail['weton'] ?? '-',
+                          Icons.wb_sunny,
+                        ),
+                        const SizedBox(height: 15),
+                        _buildResultRow(
+                          'Neptu Hari & Pasaran:',
+                          '${_wetonDetail['hari']} (${_wetonDetail['neptuHari']}) + ${_wetonDetail['pasaran']} (${_wetonDetail['neptuPasaran']}) = ${_wetonDetail['totalNeptu']}',
+                          Icons.calculate_outlined,
+                        ),
                         const SizedBox(height: 15),
                         _buildResultRow(
                           'Kalender Saka Bali:',
@@ -121,7 +129,7 @@ class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
                         ),
                         const SizedBox(height: 25),
                         const Text(
-                          'Saran Pertanian:',
+                          'Penjelasan Weton & Siklus:',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -131,23 +139,37 @@ class _TraditionalCalendarScreenState extends State<TraditionalCalendarScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.green[50],
+                            color: Colors.blue[50],
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.green[300]!),
+                            border: Border.all(color: Colors.blue[200]!),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.eco, color: Colors.green[700]),
+                              Icon(Icons.info_outline, color: Colors.blue[700]),
                               const SizedBox(width: 10),
                               Expanded(
-                                child: Text(
-                                  _advice,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.green[900],
-                                    height: 1.4,
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _wetonDetail['deskripsi'] ?? '',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.blue[900],
+                                        height: 1.4,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'Sumber ref: https://se-hari.com/tools/kalkulator-weton-jawa',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.blue[800],
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
